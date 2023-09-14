@@ -18,6 +18,8 @@ main {
 .pokemon-image img {
     max-width: 20rem;
     padding: 4rem;
+    animation-name: blurAnimation;
+    animation-duration: 4s;
 }
 
 .description {
@@ -64,3 +66,10 @@ button:active {
 button:active {
   opacity: .5;
 }
+
+
+@keyframes blurAnimation {
+    from {filter: blur(30px)}
+    to {filter: blur(0px);}
+  }
+  
