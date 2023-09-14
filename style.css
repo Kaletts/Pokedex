@@ -19,7 +19,7 @@ main {
     max-width: 20rem;
     padding: 4rem;
     animation-name: blurAnimation;
-    animation-duration: 4s;
+    animation-duration: 1.3s;
 }
 
 .description {
