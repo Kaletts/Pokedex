@@ -30,7 +30,7 @@ function getPokemon(maxPokemonCount) {
         })
 
 
-    fetch(URLApi2)
+        fetch(URLApi2)
         .then(response => {
             //Si la respuesta no es correcta
             if (!response.ok) {
@@ -42,7 +42,8 @@ function getPokemon(maxPokemonCount) {
 
         .then(data => {
             let pokemonDescription = document.getElementById('descriptionDetail'); //Selecciono el elemento donde voy a completar la descripción
-            descriptionDetail.textContent = data['flavor_text_entries']['flavor_text']; // Completo la descripción
+            descriptionDetail.textContent = data.flavor_text_entries[1].flavor_text.toUpperCase(); // Completo la descripción
+            console.log(data);
         })
         //Si hubiera un error, logueo el error en la consola
         .catch(error => {
