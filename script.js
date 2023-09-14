@@ -42,7 +42,9 @@ function getPokemon(maxPokemonCount) {
 
         .then(data => {
             let pokemonDescription = document.getElementById('descriptionDetail'); //Selecciono el elemento donde voy a completar la descripción
-            descriptionDetail.textContent = data.flavor_text_entries[1].flavor_text.toUpperCase(); // Completo la descripción
+            let desc = data.flavor_text_entries[1].flavor_text; //Guardo toda la descripción
+            let descUp = desc.charAt(0).toUpperCase() + desc.slice(1); // Paso a mayuscula la primera letra
+            descriptionDetail.textContent = descUp // Completo la descripción
             console.log(data);
         })
         //Si hubiera un error, logueo el error en la consola
@@ -50,10 +52,6 @@ function getPokemon(maxPokemonCount) {
             console.error('Error:', error);
         })
 }
-
-
-//Esto funciona, ahora hay que modificar el DOM usando los datos de la respuesta.
-
 
 const maxPokemonCount = 1008; //Hardcodeo la cantidad de pokemon existentes
 
