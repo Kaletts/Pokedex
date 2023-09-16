@@ -122,6 +122,32 @@ function eliminarTodosLosHijos(parent) { //Lo dejo en español porque me parece 
 }
 
 
+let pokemon = document.getElementById('pokemonName');
+pokemon.addEventListener('click', function () {
+    nombrarPokemon(pokemon.innerText);
+});
+
+function nombrarPokemon(pokemonName) {
+    let contador = 0;
+
+    let intervalo = setInterval(function () {
+        let texto = pokemonName;
+        let instanciaAudio = new SpeechSynthesisUtterance();
+
+        instanciaAudio.text = texto;
+        instanciaAudio.voice = window.speechSynthesis.getVoices()[0];
+
+        window.speechSynthesis.speak(instanciaAudio);
+
+        contador++;
+
+        if (contador === 2) {
+            clearInterval(intervalo);
+        }
+    }, 10 );
+
+}
+
 
 
 
