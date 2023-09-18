@@ -10,32 +10,50 @@
 </head>
 
 <body>
-    <main>
-        <div class="container">
-            <div class="pokemon-image">
-                <img src="images/pokeball.svg" alt="Pokéball" id="pokemonImage">
-            </div>
-            <div class="pokemon-info">
-                <div class="description">
-                    <p id="pokemonName"></p>
-                </div>
-                <div class="description">
-                    <p id="descriptionDetail"></p>
-                </div>
-            </div>
-            <div class="boton">
-                <button id="randomPokemon">Elije tu Pokémon al azar</button>
-            </div>
+    <header class="headNav">
+        <div class="containerHeader">
+            <a href="#"><img src="images/pokedex.svg" alt="Pokédex" class="pokeDex"></img></a>
         </div>
-        <div class="container" id="secondContainer">
-            <div class="pokemon-info">
-                <div class="description">
-                    <ul id="statsList">
-                    </ul>
+    </header>
+    <main>
+        <div class="wrapper">
+            <div class="formContainer">
+                <form>
+                  <div class="searchBox">
+                    <label for="nombre">Busca tu Pokémon</label>
+                    <input type="text" id="nombre" name="Nombre" placeholder="Pikachu" required>
+                    <input class="busca" type="submit" value="¡Busca!">
+                  </div>
+                </form>
+              </div>
+            <div class="container">
+                <div class="pokemon-image">
+                    <img src="images/pokeball.svg" alt="Pokéball" id="pokemonImage">
+                </div>
+                <div class="pokemon-info">
+                    <div class="description">
+                        <p id="pokemonName"></p>
+                    </div>
+                    <div class="description">
+                        <p id="descriptionDetail"></p>
+                    </div>
+                </div>
+                <div class="boton">
+                    <button id="randomPokemon">Elije tu Pokémon al azar</button>
+                </div>
+            </div>
+            <div class="container" id="secondContainer">
+                <div class="pokemon-info2">
+                    <div class="description">
+                        <ul id="statsList"></ul>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
+    <footer class="footer">
+        <h4 id="copyright"></h4>
+    </footer>
 </body>
 <script src="script.js"></script>
 

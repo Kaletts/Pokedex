@@ -38,7 +38,7 @@ function getPokemon(maxPokemonCount) {
             };
 
             arrayStats.forEach(stat => {
-                document.getElementById('secondContainer').style.display = 'block';
+                document.getElementById('secondContainer').style.display = 'flex';//Hago visible el contenedor
                 let statName = stat.stat.name; // Busco el nombre de cada stat
                 let statValue = stat.base_stat;; //Valor base del stat
                 let listItem = document.createElement('li'); // Creo un li
@@ -47,30 +47,20 @@ function getPokemon(maxPokemonCount) {
                 listItem.textContent = `${statNameUp}: ${statValue}`; // Agrego al texto dentro del li el nombre y valor del stat
                 statsList.appendChild(listItem);
 
+                // Crear una barra para representar el nivel del stat
+                let bar = document.createElement('div');
+                bar.classList.add('statBar');
+                bar.style.width = `${(statValue / 255) * 100}%`; // Ajusta la longitud de la barra según el nivel
+                listItem.appendChild(bar);
+
+                statsList.appendChild(listItem);
+
                 if (statClassMap[statName]) {
                     listItem.classList.add(statClassMap[statName]);
                 }
+                // Clases personalizadas para cada stat - Todo este IF lo refactoricé a un objeto arriba en la constante statClassMap
 
-                // Clases personalizadas para cada stat - Todo este IF lo refactoricé a un objeto arriba en la constante statClassMap, guardo el codigo de ejemplo
-
-                /*  if (statName === 'hp') { 
-                     listItem.classList.add('hp');
-                 } else if (statName === 'attack') {
-                     listItem.classList.add('attack');
-                 } else if (statName === 'defense') {
-                     listItem.classList.add('defense');
-                 } else if (statName === 'special-attack') {
-                     listItem.classList.add('special-attack');
-                 } else if (statName === 'special-defense') {
-                     listItem.classList.add('special-defense');
-                 } else if (statName === 'speed') {
-                     listItem.classList.add('speed');
-                 } */
-                // Logueo los valores para saber que estan bien
-                console.log(statName);
-                console.log(statValue);
             });
-            console.log(data);
         })
         //Si hubiera un error, logueo el error en la consola
         .catch(error => {
@@ -88,17 +78,30 @@ function getPokemon(maxPokemonCount) {
             return response.json();
         })
 
-        .then(data => {
-            let pokemonDescription = document.getElementById('descriptionDetail'); //Selecciono el elemento donde voy a completar la descripción
-            let desc = data.flavor_text_entries[1].flavor_text; //Guardo toda la descripción
-            let descUp = desc.charAt(0).toUpperCase() + desc.slice(1); // Paso a mayuscula la primera letra
-            descriptionDetail.textContent = descUp // Completo la descripción
-            console.log(data);
+        .then(data => { //Encontrar la descripción en Español
+            //Declaro como null para guardar el dato luego
+            let descripcionEspañol = null; 
+
+            // busco en el array flavor_text_entries para buscar la descripción en español
+            for (const entrada of data.flavor_text_entries) {
+                if (entrada.language.name === "es") {
+                    descripcionEspañol = entrada.flavor_text; // Guardo la descripción en Español
+                    break; 
+                }// Termino el bucle una vez que encontramos la descripción en español
+            }
+
+            if (descripcionEspañol) {
+                let descUp = descripcionEspañol.charAt(0).toUpperCase() + descripcionEspañol.slice(1); //La paso a mayuscula en la primera letra
+                descriptionDetail.textContent = descUp; //Lo modifico en la web
+            } else {
+                console.error('No se encontró una descripción en español.');
+            }
+            
         })
         //Si hubiera un error, logueo el error en la consola
-        .catch(error => {
-            console.error('Error:', error);
-        })
+        .catch (error => {
+                console.error('Error:', error);
+            })
 }
 
 const maxPokemonCount = 1008; //Hardcodeo la cantidad de pokemon existentes
@@ -127,6 +130,7 @@ pokemon.addEventListener('click', function () {
     nombrarPokemon(pokemon.innerText);
 });
 
+//Hace que el navegador diga el nombre del pokemon cuando se pincha sobre el.
 function nombrarPokemon(pokemonName) {
     let contador = 0;
 
@@ -144,12 +148,13 @@ function nombrarPokemon(pokemonName) {
         if (contador === 2) {
             clearInterval(intervalo);
         }
-    }, 10 );
+    }, 10);
 
 }
 
 
 
-
-
-
+/* Esto cambia la fecha del copyright a la del año actual*/
+const fecha = new Date();
+const añoActual = fecha.getFullYear();
+const h4Footer = document.getElementById("copyright").textContent = "©️ Copyright Kaled Emanuel Jaluf" + " " + añoActual;
