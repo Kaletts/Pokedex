@@ -45,7 +45,7 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .formContainer {
@@ -172,7 +172,7 @@ ul {
 }
 
 .pokemon-image img {
-    max-width: 15rem;
+    max-width: 90%;
     padding: 1rem;
     animation-name: blurAnimation;
     animation-duration: 1s;
@@ -309,4 +309,14 @@ footer {
     background-color: rgb(242, 242, 242);
     width: 100vw;
     padding: 1rem;
+}
+
+
+
+/*Estilo para celulares*/
+
+@media (max-width: 768px) { 
+    .container {
+        flex-basis:60%;
+    }
 }
