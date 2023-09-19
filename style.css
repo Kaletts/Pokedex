@@ -172,7 +172,7 @@ ul {
 }
 
 .pokemon-image img {
-    max-width: 90%;
+    max-width: 50%;
     padding: 1rem;
     animation-name: blurAnimation;
     animation-duration: 1s;
@@ -317,6 +317,46 @@ footer {
 
 @media (max-width: 768px) { 
     .container {
-        flex-basis:60%;
+        flex-basis:75%;
+    }
+    .formContainer {
+        flex-basis: 75%;
+    }
+}
+
+
+
+/* Diseño del Popup - Toast para cuando algo sale mal*/
+
+  .toast {
+    background-color: rgb(31, 31, 31);
+    border-radius: 99px;
+    height: 10rem;
+    width: 25rem;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    right: 0;
+    left: 0;
+    top: 40%;
+    margin: auto;
+    background-color: rgb(253, 70, 65);
+    color: white;
+    animation: animacion-entrada 1s linear 0s 1 normal none;
+    font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  @keyframes animacion-entrada {
+			
+    0% {
+        filter:blur(30px);
+        opacity:0;
+    }
+    100% {
+        filter:blur(0);
+        opacity:1;
     }
 }
