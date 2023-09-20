@@ -252,6 +252,14 @@ function busquedaPokemonPorNombre(nombreIngresado) {
 }
 
 
+/*TODO Agregar logica que cambie para el pokemon anterior y al siguiente cuando se pulse la flecha */ 
+let flechaIzquierda = document.getElementById('leftArrow');
+let flechaDerecha = document.getElementById('rightArrow');
+
+function nextPokemon() {
+}
+
+
 /* Esto cambia la fecha del copyright a la del año actual*/
 const fecha = new Date();
 const añoActual = fecha.getFullYear();
