@@ -70,7 +70,7 @@ body {
 li {
     text-decoration: none;
     list-style: none;
-    margin: 0.8rem;
+    margin: 1rem;
 }
 
 .statBar {
@@ -81,10 +81,7 @@ li {
     /* Añade espacio entre el valor y la barra */
 }
 
-
 #statsList {
-    display: flex;
-    flex-direction: column;
     padding: 0;
 }
 
@@ -171,22 +168,19 @@ ul {
     justify-content: center;
 }
 
-.pokemon-image img {
+#pokemonImage {
     max-width: 60%;
     padding: 1rem;
-    animation-name: blurAnimation;
-    animation-duration: 1s;
+}
+
+.pokeBallAnimated {
+    animation-name: shake;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
 }
 
 .description {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-weight: 700;
-}
-
-.pokemon-info2 {
-    display: flex;
 }
 
 #descriptionDetail {
@@ -274,15 +268,27 @@ button:active {
 }
 
 /* Animacion del inicio */
-@keyframes blurAnimation {
-    from {
-        filter: blur(30px)
-    }
 
-    to {
-        filter: blur(0px);
+@keyframes shake {
+    0% {
+      transform: translateX(0) rotate(0);
     }
-} 
+    20% {
+      transform: translateX(-10px) rotate(-20deg);
+    }
+    30% {
+      transform: translateX(10px) rotate(20deg);
+    }
+    50% {
+      transform: translateX(-10px) rotate(-10deg);
+    }
+    60% {
+      transform: translateX(10px) rotate(10deg);
+    }
+    100% {
+      transform: translateX(0) rotate(0);
+    }
+  }
 
 
 /*Aca doy estilo al formulario*/
@@ -295,7 +301,7 @@ button:active {
 }
 
 #nombre:focus {
-    border-color: rgb(67, 74, 84);
+    outline: 1px solid rgb(67, 74, 84);
 }
 
 
