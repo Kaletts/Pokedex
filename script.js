@@ -148,7 +148,16 @@ function nombrarPokemon(pokemonName) {
         let instanciaAudio = new SpeechSynthesisUtterance();
 
         instanciaAudio.text = texto;
-        instanciaAudio.voice = window.speechSynthesis.getVoices()[0];
+
+        // Selecciono una voz en inglés
+        let voces = window.speechSynthesis.getVoices();//Esto devuelve las voces disponibles del navegador que este ejecutando la web
+        let voz = voces.find(voice => voice.lang.includes('en'));//Esto busca que este disponible la voz en ingles
+        if (voz) {
+            instanciaAudio.voice = voz;
+        } else {
+            console.error('No se encontraron voces en inglés.');
+            return; 
+        }// Sale de la función si no se encuentra una voz en inglés
 
         window.speechSynthesis.speak(instanciaAudio);
 
@@ -158,7 +167,6 @@ function nombrarPokemon(pokemonName) {
             clearInterval(intervalo);
         }
     }, 10);
-
 }
 
 
