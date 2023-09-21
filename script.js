@@ -1,5 +1,8 @@
 let headerMain = document.getElementById('headerID');
 
+//Variable global donde voy a guardar el ID del pokemon
+let pokemonIDGLOBAL;
+
 function getPokemon(maxPokemonCount) {
     const URLApi = `https://pokeapi.co/api/v2/pokemon/${maxPokemonCount}/` // URL del API para elegir el Pokémon 
     const URLApi2 = `https://pokeapi.co/api/v2/pokemon-species/${maxPokemonCount}` // URL del API para la descripción
@@ -24,6 +27,7 @@ function getPokemon(maxPokemonCount) {
             let pokemonName = document.getElementById('pokemonName'); //Selecciono el elemento donde voy a completar el nombre
             let pokemonImage = document.getElementById('pokemonImage'); //Selecciono el elemento donde voy a completar la imagen
             pokemonName.textContent = data.name.toUpperCase();
+            pokemonIDGLOBAL = data.id;
 
             const urlImagePokemon = data.sprites.other['official-artwork'].front_default; //Guardo la url del sprite en una const
             pokemonImage.src = urlImagePokemon; //Modifico el src de la imagen
@@ -156,6 +160,8 @@ function nombrarPokemon(pokemonName) {
 }
 
 
+
+//Busqueda de pokemon por el nombre
 //Asigno a una variable el boton de busqueda
 let busquedaBoton = document.getElementById('buscaBoton');
 
@@ -172,6 +178,7 @@ busquedaBoton.addEventListener('click', (event) => {
     } else {
         busquedaPokemonPorNombre(valorNombre);
     }
+
 })
 
 function busquedaPokemonPorNombre(nombreIngresado) {
@@ -187,49 +194,11 @@ function busquedaPokemonPorNombre(nombreIngresado) {
             return response.json();
         })
 
-        .then(data => { //Copio la misma funcion de arriba
-            let pokemonName = document.getElementById('pokemonName'); //Selecciono el elemento donde voy a completar el nombre
-            let pokemonImage = document.getElementById('pokemonImage'); //Selecciono el elemento donde voy a completar la imagen
-            pokemonName.textContent = data.name.toUpperCase();
-
-            const urlImagePokemon = data.sprites.other['official-artwork'].front_default; //Guardo la url del sprite en una const
-            pokemonImage.src = urlImagePokemon; //Modifico el src de la imagen
-
-            let arrayStats = data.stats; // Creo un array donde guardo todos los valores de stats posibles
-
-            const statClassMap = {
-                hp: 'hp',
-                attack: 'attack',
-                defense: 'defense',
-                'special-attack': 'special-attack', //Por el guion hay que usar comillas
-                'special-defense': 'special-defense', //Por el guion hay que usar comillas
-                speed: 'speed'
-            };
-
-            arrayStats.forEach(stat => {
-                document.getElementById('secondContainer').style.display = 'flex';//Hago visible el contenedor
-                let statName = stat.stat.name; // Busco el nombre de cada stat
-                let statValue = stat.base_stat;; //Valor base del stat
-                let listItem = document.createElement('li'); // Creo un li
-                let statNameUp = statName.charAt(0).toUpperCase() + statName.slice(1); // Paso a mayuscula la primera letra
-
-                listItem.textContent = `${statNameUp}: ${statValue}`; // Agrego al texto dentro del li el nombre y valor del stat
-                statsList.appendChild(listItem);
-
-                // Crear una barra para representar el nivel del stat
-                let bar = document.createElement('div');
-                bar.classList.add('statBar');
-                bar.style.width = `${(statValue / 255) * 100}%`; // Ajusta la longitud de la barra según el nivel
-                listItem.appendChild(bar);
-
-                statsList.appendChild(listItem);
-
-                if (statClassMap[statName]) {
-                    listItem.classList.add(statClassMap[statName]);
-                }
-                // Clases personalizadas para cada stat - Todo este IF lo refactoricé a un objeto arriba en la constante statClassMap
-
-            });
+        //Simplemente ejecuto la funcion getPokemon usando el ID tomado del nombre ingresado
+        .then(data => {
+            let pokemonID = data.id;
+            pokemonIDGLOBAL = data.id;
+            getPokemon(pokemonID);
         })
         //Si hubiera un error, logueo el error en la consola
         .catch(error => {
@@ -252,12 +221,54 @@ function busquedaPokemonPorNombre(nombreIngresado) {
 }
 
 
-/*TODO Agregar logica que cambie para el pokemon anterior y al siguiente cuando se pulse la flecha */ 
+
+/*TODO Agregar logica que cambie para el pokemon anterior y al siguiente cuando se pulse la flecha */
 let flechaIzquierda = document.getElementById('leftArrow');
 let flechaDerecha = document.getElementById('rightArrow');
 
+flechaDerecha.addEventListener('click', nextPokemon);
+flechaIzquierda.addEventListener('click',previousPokemon);
+
+//Funcion para proximo pokemon
 function nextPokemon() {
+    const URLApi = `https://pokeapi.co/api/v2/pokemon/${pokemonIDGLOBAL}/`
+    fetch(URLApi)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Algo salio mal');
+            }
+            return response.json();
+        })
+        .then(data => {
+            let pokemonID = data.id;
+            pokemonID++;
+            getPokemon(pokemonID);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        })
 }
+
+//Funcion para el anterior pokemon
+function previousPokemon() {
+    const URLApi = `https://pokeapi.co/api/v2/pokemon/${pokemonIDGLOBAL}/`
+    fetch(URLApi)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Algo salio mal');
+            }
+            return response.json();
+        })
+        .then(data => {
+            let pokemonID = data.id;
+            pokemonID--;
+            getPokemon(pokemonID);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        })
+}
+
 
 
 /* Esto cambia la fecha del copyright a la del año actual*/

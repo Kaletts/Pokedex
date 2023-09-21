@@ -172,7 +172,7 @@ ul {
 }
 
 .pokemon-image img {
-    max-width: 50%;
+    max-width: 60%;
     padding: 1rem;
     animation-name: blurAnimation;
     animation-duration: 1s;
@@ -359,4 +359,15 @@ footer {
         filter:blur(0);
         opacity:1;
     }
+}
+
+/* Diseño de las flechas para cambiar al pokemon siguiente o anterior */
+
+.arrows:hover {
+    cursor: pointer;
+}
+
+.arrows:active {
+    scale: 95%;
+    filter: drop-shadow(8px 8px 10px #000000);
 }
