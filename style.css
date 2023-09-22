@@ -70,7 +70,7 @@ body {
 li {
     text-decoration: none;
     list-style: none;
-    margin: 1rem;
+    margin: 1rem 1rem 2rem 1rem;
 }
 
 .statBar {
@@ -175,7 +175,7 @@ ul {
 
 .pokeBallAnimated {
     animation-name: shake;
-    animation-duration: 1.5s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
 }
 
@@ -199,6 +199,18 @@ ul {
     text-align: center;
 }
 
+/* Agrego el estilo de los tipos de pokemon */
+
+.pokemon-types {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.type-image {
+    max-width: 15%;
+    padding: 0.5rem;
+}
 
 /* Los botones */
 .boton {
